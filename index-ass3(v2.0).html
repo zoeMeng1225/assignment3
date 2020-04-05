@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+      <script>
+        let band = ['Aband','Bband','Cband','Dband','Eband'];
+        let newBand = band.map(band => band.toLowerCase())
+        console.log(newBand)
+        let myFavo = prompt('what band you like?');
+          if(band.indexOf(myFavo)!== -1 || newBand.indexOf(myFavo)!== -1){
+                alert('YEAH I LOVE THEM!'.toLowerCase())
+        }else{
+              alert('Nah. They’re pretty lame')
+        }
+  
+      </script>
+ </body>
+</html>
