@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script defer src="javascripts/main2.js"></script>
+</head>
+<body>
+<script>
+  let randomNumber = Math.floor(Math.random() * 100) + 1;
+
+window.onload = function(){
+  const body = document.getElementsByTagName('body');
+ 
+  const title = document.write('<h1 style = width:50%>Number guessing game</h1>     <p style = width:50%>We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We ll tell you if your guess was too high or too low.</p>');
+  
+
+
+  const form = document.createElement('div');
+    form.setAttribute('class','form');
+   
+
+    document.body.appendChild(form);
+    const label =  document.createElement('label');
+    label.setAttribute('for','guessField');
+    form.appendChild(label);
+    label.innerHTML = 'Enter a guess:';
+    
+
+    const guessField = document.createElement('input');
+    guessField.setAttribute('type','text');
+    guessField.className = 'guessField';
+    form.appendChild(guessField);
+    guessField.style.margin = "0 2em";
+    guessField.style.border = "1px solid gray";
+    
+    const guessSubmit = document.createElement('input');
+    guessSubmit.setAttribute('type','submit');
+    guessSubmit.className = 'guessSubmit';
+    form.appendChild(guessSubmit);
+    guessSubmit.innerHTML = 'Submit';
+    guessSubmit.style.border = "1px solid gray";
+    guessSubmit.style.backgroundColor = "yellow";
+    guessSubmit.style.borderRadius = "5px";
+    
+
+    const resultParas = document.createElement('div');
+    resultParas.setAttribute('class','resultParas');
+    document.body.appendChild(resultParas);
+    resultParas.style.width = "50%"
+
+    const guesses = document.createElement('p');
+    guesses.setAttribute('class','guesses');
+    resultParas.appendChild(guesses);
+    const lastResult = document.createElement('p');
+    lastResult.setAttribute('class','lastResult');
+    resultParas.appendChild(lastResult);
+    const lowOrHi = document.createElement('p');
+    lowOrHi .setAttribute('class','lowOrHi ');
+    resultParas.appendChild(lowOrHi);
+    
+
+  
+
+let guessCount = 1;
+let resetBtn;
+
+function checkGuess(){
+  let userGuess = Number(guessField.value);
+  if(guessCount === 1){
+    guesses.textContent = 'Previous guesses: ';
+  }
+  guesses.textContent += userGuess + ' ';
+
+  if(userGuess === randomNumber){
+    lastResult.textContent = 'Congratulations! You got it right!';
+    lastResult.style.backgroundColor = 'green';
+    lowOrHi.textContent = '';
+    setGameOver();
+  }else if(guessCount === 10){
+    lastResult.textContent = 'Game over!';
+    setGameOver();
+  }else{
+    lastResult.textContent = 'Wrong Number!';
+    lastResult.style.backgroundColor = 'red';
+    if(userGuess < randomNumber){
+      lowOrHi.textContent = 'Your last guess was too low';
+    }else if(userGuess > randomNumber){
+      lowOrHi.textContent = 'Your last guess was too high';
+    }
+  }
+  guessCount++;
+  guessField.value = '';
+  guessField.focus();
+}
+
+
+
+
+guessSubmit.addEventListener('click', checkGuess);
+
+function setGameOver(){
+  guessField.disabled = true;
+  guessSubmit.disabled = true;
+
+  resetBtn = document.createElement('button');
+  resetBtn.textContent = 'New Game';
+  document.body.append(resetBtn);
+  resetBtn.addEventListener('click',resetGame);
+}
+
+function resetGame(){
+  guessCount = 1;
+  const resetParas = document.querySelectorAll('.resultParas p');
+  for(let i = 0; i < resetParas.length;i++){
+    resetParas[i].textContent = '';
+  }
+  resetBtn.parentNode.removeChild(resetBtn);
+
+  guessField.disabled = false;
+  guessSubmit.disabled = false;
+  guessField.value = ' ';
+  guessField.focus();
+
+  lastResult.stylebackgroundColor = 'yellow';
+  randomNumber = Math.floor(Math.random()* 100)+1;
+}
+
+};
+  
+</script>
+</body>
+</html>
